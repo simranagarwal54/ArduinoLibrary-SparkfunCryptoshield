@@ -81,7 +81,7 @@ const uint8_t AtEcc108::getAddress() const
 {
     return this->ADDRESS;
 }
-
+//when personalized, calling this function gives random number everytime
 uint8_t AtEcc108::getRandom(bool update_seed)
 {
     volatile uint8_t ret_code;
@@ -249,7 +249,7 @@ uint8_t AtEcc108::lock_data_zone()
   return ret_code;
 }
 
-
+//use this function to personalize the AtEcc108. Please note that this step is irreversible.
 uint8_t AtEcc108::personalize()
 {
   bool config_locked;
