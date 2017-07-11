@@ -4,6 +4,7 @@ Hardware used: Sparkfun CryptoShield and Arduino Uno
 This Arduino Library has been taken and implemented from https://github.com/cryptotronix/cryptoauth-arduino.
 
 Few Changes have been made and this library is the edited version and contains implementation of digital signing and verification(Basic Authentication) of a user input using a simple menu based interface.
+Chip used to successfully check Authentication: AtEcc108
 
 -User Input
 -Sha256 Hash Calculator
