@@ -71,7 +71,7 @@ void setup() {
   while(!Serial);
   ecc.enableDebug(&Serial);
   Serial.println("User Menu");
-  Serial.println("Enter your choice");
+  Serial.println("Enter your choice. Make sure to add '(' and ')' at the start and end of your input as defined below.");
   Serial.println("1. User Input (Choice,YOUR MSG) ");
   Serial.println("2. Create Hash Digest and print it (Choice,Your MSG)");
   Serial.println("3. Create Signature of message and print it (Choice,Your Msg,Private Key Slot");
