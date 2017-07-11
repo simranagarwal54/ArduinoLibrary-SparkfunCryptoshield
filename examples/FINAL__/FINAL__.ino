@@ -1,5 +1,7 @@
-#include <cryptoauth.h>
+#include <cryptoauth.h>    
+//creating object of class AtEcc108 in the library cryptoauth
 AtEcc108 ecc = AtEcc108();
+
 const byte numChars = 32;
 char receivedChars[numChars];
 char tempChars[numChars];
@@ -9,6 +11,8 @@ int ch = 0;
 int slot1 = 0;
 int slot2 = 0;
 boolean newData = false;
+
+//this function prints the output in the required hexadecimal format
 void hexify(const char *str, const uint8_t *hex, unsigned int len)
 {
 
@@ -31,6 +35,7 @@ void hexify(const char *str, const uint8_t *hex, unsigned int len)
 
 }
 
+/*This function checks for the user input and its start and end markers.*/
 void recvWithStartEndMarkers() {
     static boolean recvInProgress = false;
     static byte ndx = 0;
@@ -86,17 +91,21 @@ void setup() {
 void loop() {
     recvWithStartEndMarkers();
     if (newData == true) {
-        digitalWrite(2,LOW);
+        digitalWrite(2,LOW);   //You need to calibrate the leds according to verification success or failure.
         digitalWrite(3,LOW);
         strcpy(tempChars, receivedChars);
         parseData();
         showParsedData();
-        newData = false;
+        newData = false;  //to ensure that the loop doesn't run in an endless loop
         delay(100);
         
         switch(ch){
-          case 5:
-            sha256_hash_t hash5;
+          case 5:   
+            /*Debug Mode:
+            You can enter your message to be sent and a message to verify, if both the messages are same, Verification is successful
+            And You can enter the private-public key pair slots individually as well, if both slot ids are same, verification is successful
+            else failed*/
+            sha256_hash_t hash5;    
             char sig5[64];
             char pub5[64];
             Serial.print("Private Key Slot: ");
@@ -106,24 +115,24 @@ void loop() {
             Serial.print("Your message for verifying: ");
             Serial.println(msg2);
             
-            sha256(&hash5, msg1, sizeof(msg1));
+            sha256(&hash5, msg1, sizeof(msg1));   //calling the sha256 directly from library
             hexify("\nMessage Digest for message Sent: ", &hash5[0], sizeof(hash5));
 
-            if (0 != ecc.sign(&hash5[0], sizeof(hash5),slot1))
+            if (0 != ecc.sign(&hash5[0], sizeof(hash5),slot1))   //creating signature and verifying if signature was made or not
               Serial.println("Fail sign");
             else{
               memcpy (sig5, ecc.rsp.getPointer(), sizeof(sig5));
-              hexify("Signature1 Created:", (const uint8_t *) sig5, sizeof(sig5));
+              hexify("Signature1 Created:", (const uint8_t *) sig5, sizeof(sig5));  //NOt deterministic Signature created
              
             }
 
             //Serial.println(msg2);
             
-            if(0!=ecc.hash_verify(msg2, sizeof(msg2),slot2,(const uint8_t *) sig5)){
+            if(0!=ecc.hash_verify(msg2, sizeof(msg2),slot2,(const uint8_t *) sig5)){   //Calling the verification function from the library
               delay(100);
-             memcpy (pub5, ecc.rsp.getPointer(), sizeof(pub5));
+             memcpy (pub5, ecc.rsp.getPointer(), sizeof(pub5));  //while verifying, the public key is generated and this stores the buffered value into the variable pub5
              Serial.println();
-             hexify("Public Key:", (const uint8_t *) pub5, sizeof(pub5));
+             hexify("Public Key:", (const uint8_t *) pub5, sizeof(pub5)); 
              Serial.println("\n Verification failed");
              digitalWrite(3, HIGH);
             }
@@ -213,14 +222,16 @@ void loop() {
     }
 }
 
+/*This Function is used to split the input into datas required for the implementation*/
+
 void parseData() {      
 
-    char * strtokIndx; 
+    char * strtokIndx;  //index variable
 
-    strtokIndx = strtok(tempChars,","); 
+    strtokIndx = strtok(tempChars,",");  //gets the first part 
     ch = atoi(strtokIndx); 
     
-    strtokIndx = strtok(NULL, ",");
+    strtokIndx = strtok(NULL, ","); //continues where the previous call left off
     strcpy(msg1, strtokIndx);
 
     strtokIndx = strtok(NULL, ",");
@@ -234,6 +245,7 @@ void parseData() {
 
 }
 
+/*This function is used to print the input*/
 void showParsedData() {
     Serial.print("Your Choice: ");
     Serial.println(ch);
