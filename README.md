@@ -17,6 +17,25 @@ Simply download this library and run the code in the example folder.
 
 Make Sure to personalize your device. The steps on how to personalize your device is given on the link above.
 
+## Important Links
+
+Sparkfun Hookup Guide
+https://learn.sparkfun.com/tutorials/crypto-shield-hookup-guide
+
+Original library and source codes
+https://github.com/cryptotronix/cryptoauth-arduino
+
+ATSHA204 datasheet
+http://www.atmel.com/Images/Atmel-8740-CryptoAuth-ATSHA204-Datasheet.pdf
+
+AtAES132 datasheet
+http://www.atmel.com/Images/Atmel-8914-CryptoAuth-ATAES132A-Datasheet.pdf
+
+ATECC108 datasheet
+http://www.atmel.com/Images/Atmel-8873S-CryptoAuth-ATECC108-Datasheet-Summary.pdf
+
+Library and source codes for RTC 
+https://github.com/adafruit/RTClib
 
 
 
