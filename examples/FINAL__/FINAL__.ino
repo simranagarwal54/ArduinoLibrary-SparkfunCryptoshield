@@ -72,7 +72,8 @@ void recvWithStartEndMarkers() {
 
 
 void setup() {
-  Serial.begin(9600);
+  //Serial.begin(38400); //Uncomment this line for Bluetooth Communication using HC05
+  Serial.begin(9600);    //Comment this line for Bluetooth Communication.
   while(!Serial);
   ecc.enableDebug(&Serial);
   Serial.println("User Menu");
@@ -82,8 +83,8 @@ void setup() {
   Serial.println("3. Create Signature of message and print it (Choice,Your Msg,Private Key Slot");
   Serial.println("4. Check authentication (Choice,Your Message,Public Key Slot)");
   Serial.println("5. Debug mode (Choice,Your Message,Private Key Slot,Public Key Slot,Debug Message)");
-  pinMode(2, OUTPUT); //blue
-  pinMode(3, OUTPUT); //red
+  pinMode(2, OUTPUT); //blue led (optional)
+  pinMode(3, OUTPUT); //red led (optional)
    
 }
 
