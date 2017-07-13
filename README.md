@@ -13,7 +13,9 @@ Chip used to successfully check Authentication: AtEcc108
 -You can send two messages and private-public key pairs to verify if the code works correctly.
 
 *To Run the code*,
-Simply download this library and run the code in the example folder.
+Simply download this library and run the FINAL_ code in the example folder.
+
+The RTC_GGWP displays the real time. Download the RTC library from the link given below run the RTC_GGWP in the example folder.  
 
 Make Sure to personalize your device. The steps on how to personalize your device is given on the link above.
 
